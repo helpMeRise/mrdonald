@@ -44,6 +44,7 @@ const Button = styled.button`
   border: none;
   color: #fff;
   gap: 3px;
+  font-size: 16px;
 `;
 
 export const NavBar = () => (
