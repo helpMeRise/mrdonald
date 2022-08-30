@@ -9,7 +9,15 @@ export const Button = styled.button`
   font-size: 21px;
   line-height: 25px;
   color: #FFFFFF;
-  border: none;
+  border-color: transparent;
   max-width: 250px;
   margin-top: auto;
+  transition-property: color, background-color, border-color;
+  transition-duration: .3s;
+  align-self: center;
+  &:hover {
+    background-color: #fff;
+    color: #299B01;
+    border-color: #299B01;
+  }
 `;

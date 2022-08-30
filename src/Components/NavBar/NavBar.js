@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import logoImage from '../image/logo.svg';
-import loginImage from '../image/sign.svg';
+import logoImage from '../../image/logo.svg';
+import loginImage from '../../image/sign.svg';
 
 const NavBarStyled = styled.header`
   position: fixed;
@@ -9,7 +9,7 @@ const NavBarStyled = styled.header`
   left: 0;
   z-index: 999;
   height: 80px;
-  width: 100vw;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -51,6 +51,7 @@ export const NavBar = () => (
   <NavBarStyled>
     <Logo>
       <ImgLogo src={logoImage} alt='logo'/>
+      {/* eslint-disable-next-line react/no-unescaped-entities*/}
       <H1>MrDonald's</H1>
     </Logo>
     <Button>
@@ -58,4 +59,4 @@ export const NavBar = () => (
       войти
     </Button>
   </NavBarStyled>
-)
+);

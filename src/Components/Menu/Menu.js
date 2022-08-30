@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import dbMenu from './DBMenu';
+import dbMenu from '../DBMenu';
 import { ListItem } from './ListItem';
 import { Banner } from './Banner';
 
@@ -8,6 +8,7 @@ import { Banner } from './Banner';
 const MenuStyled = styled.main`
   background-color: #ccc;
   margin-top: 80px;
+  margin-left: 380px;
 `;
 
 const SectionMenu = styled.section`
