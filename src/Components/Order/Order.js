@@ -54,6 +54,10 @@ export const Order = ({ orders }) => {
     return totalPriceItems(item) + acc
   }, 0);
 
+  const totalCounter = orders.reduce((acc, item) => {
+    return item.count + acc
+  }, 0);
+
   return (
     <>
       <OrderStyled>
@@ -62,7 +66,7 @@ export const Order = ({ orders }) => {
           {orders.length ?
           (
             <OrderList>
-              {orders.map(order => <OrderListItem order={order}/>)}
+              {orders.map(order => <OrderListItem  key={order.id} order={order}/>)}
             </OrderList>
           ) : (
             <EmptyList>Список заказов пуст</EmptyList>
@@ -71,7 +75,7 @@ export const Order = ({ orders }) => {
         </OrderContent>
         <Total>
           <span>Итого:</span>
-          <span>5</span>
+          <span>{totalCounter}</span>
           <TotalPrice>{formatCurrency(total)}</TotalPrice>
         </Total>
         <Button>Оформить</Button>
