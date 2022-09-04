@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import trashImage from '../../image/trash.svg';
 import { formatCurrency, totalPriceItems } from '../Functions/secondaryFunction';
@@ -7,6 +7,7 @@ const OrderItemStyled = styled.li`
   display: flex;
   flex-direction: column;
   margin: 15px 0;
+  cursor: pointer;
 `;
 
 const OrderItemWrap = styled.div`
@@ -44,14 +45,21 @@ const ItemTopping = styled.li`
 `;
 
 export const OrderListItem = ({ order, removeItem, index, setOpenItem }) => {
+  
+  const editOrder = e => {
+    if (e.target === refDeleteButton.current) return;
+    setOpenItem({...order, index});
+  }
+
+  const refDeleteButton = useRef(null);
 
   return (
-    <OrderItemStyled onClick={() => setOpenItem({...order, index})}>
+    <OrderItemStyled onClick={editOrder}>
       <OrderItemWrap>
         <ItemName>{order.name} {order.choice}</ItemName>
         <span>{order.count}</span>
         <ItemPrice>{formatCurrency(totalPriceItems(order))}</ItemPrice>
-        <TrashButton onClick={() => removeItem(index)}/>
+        <TrashButton ref={refDeleteButton} onClick={() => removeItem(index)}/>
       </OrderItemWrap>
         <ItemToppings>
         {order.topping.filter(item => item.checked).map(item => (

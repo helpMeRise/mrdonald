@@ -63,7 +63,7 @@ export const ModalItem = ({ openItem, setOpenItem, orders,
 
   const toppings = useToppings(openItem);
   const choices = useChoices(openItem);
-  const counter = useCount();
+  const counter = useCount(openItem.count);
   const isEdit = openItem.index > -1;
 
   const closeModal = e => {
@@ -83,6 +83,7 @@ export const ModalItem = ({ openItem, setOpenItem, orders,
     const newOrders = [...orders];
     newOrders[openItem.index] = order;
     setOrders(newOrders);
+    setOpenItem(null);
   }
 
   const addToOrder = () => {
@@ -110,7 +111,7 @@ export const ModalItem = ({ openItem, setOpenItem, orders,
           onClick={isEdit ? editOrder : addToOrder}
           disabled={order.choices && !order.choice}
         >
-          Добавить
+          {isEdit ? 'Редактировать' : 'Добавить'}
         </Button>
       </Modal>
 

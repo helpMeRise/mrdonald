@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Button = styled.button`
-  padding: 20px 75px;
+  padding: 20px 40px;
   background: #299B01;
   font-family: Roboto;
   font-style: normal;
