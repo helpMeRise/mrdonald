@@ -43,21 +43,24 @@ const ItemTopping = styled.li`
   font-size: 14px;
 `;
 
-export const OrderListItem = ({ order }) => (
-  <OrderItemStyled>
-    <OrderItemWrap>
-      <ItemName>{order.name}</ItemName>
-      <span>{order.count}</span>
-      <ItemPrice>{formatCurrency(totalPriceItems(order))}</ItemPrice>
-      <TrashButton/>
-    </OrderItemWrap>
-      <ItemToppings>
-      {order.topping.filter(item => item.checked).map(item => (
-        <ItemTopping key={item.name}>
-          {item.name}
-        </ItemTopping>
-      ))}
+export const OrderListItem = ({ order, removeItem, index, setOpenItem }) => {
 
-      </ItemToppings>
-  </OrderItemStyled>
-);
+  return (
+    <OrderItemStyled onClick={() => setOpenItem({...order, index})}>
+      <OrderItemWrap>
+        <ItemName>{order.name} {order.choice}</ItemName>
+        <span>{order.count}</span>
+        <ItemPrice>{formatCurrency(totalPriceItems(order))}</ItemPrice>
+        <TrashButton onClick={() => removeItem(index)}/>
+      </OrderItemWrap>
+        <ItemToppings>
+        {order.topping.filter(item => item.checked).map(item => (
+          <ItemTopping key={item.name}>
+            {item.name}
+          </ItemTopping>
+        ))}
+  
+        </ItemToppings>
+    </OrderItemStyled>
+  )
+};
