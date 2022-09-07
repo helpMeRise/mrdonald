@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
+import { Context } from '../Functions/context';
 import { formatCurrency, totalPriceItems } from '../Functions/secondaryFunction';
 import { Button } from '../Style/Button';
 import { OrderListItem } from './OrderListItem';
@@ -17,7 +18,7 @@ const OrderStyled = styled.section`
   padding: 20px;
 `;
 
-const OrderTitle = styled.h2`
+export const OrderTitle = styled.h2`
   text-align: center;
   margin-bottom: 30px;
 `;
@@ -30,7 +31,7 @@ const OrderList = styled.ul`
 
 `;
 
-const Total = styled.div`
+export const Total = styled.div`
   display: flex;
   margin: 0 35px 30px;
   & span:first-child {
@@ -38,7 +39,7 @@ const Total = styled.div`
   }
 `;
 
-const TotalPrice = styled.span`
+export const TotalPrice = styled.span`
   text-align: right;
   min-width: 65px;
   margin-left: 20px;
@@ -48,7 +49,15 @@ const EmptyList = styled.p`
   text-align: center;
 `;
 
-export const Order = ({ orders, setOrders, setOpenItem, logIn, authentification }) => {
+export const Order = () => {
+
+  const { 
+    auth: { logIn, authentification },
+    orders: { orders, setOrders },
+    openItem: { setOpenItem },
+    orderConfirm: { setOpenOrderConfirm },
+  } = useContext(Context);
+
   const total = orders.reduce((acc, item) => {
     return totalPriceItems(item) + acc
   }, 0);
@@ -83,14 +92,17 @@ export const Order = ({ orders, setOrders, setOpenItem, logIn, authentification 
           ) : (
             <EmptyList>Список заказов пуст</EmptyList>
           )}
-
         </OrderContent>
-        <Total>
-          <span>Итого:</span>
-          <span>{totalCounter}</span>
-          <TotalPrice>{formatCurrency(total)}</TotalPrice>
-        </Total>
-        <Button onClick={!authentification ? logIn : () => {console.log(orders)}}>Оформить</Button>
+        {orders.length ? (
+          <>
+            <Total>
+              <span>Итого:</span>
+              <span>{totalCounter}</span>
+              <TotalPrice>{formatCurrency(total)}</TotalPrice>
+            </Total>
+            <Button onClick={authentification ? () => setOpenOrderConfirm(true) : logIn}>Оформить</Button>
+          </>
+        ) : null}
       </OrderStyled>
     </>
   )

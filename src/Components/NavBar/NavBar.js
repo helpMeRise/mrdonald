@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import logoImage from '../../image/logo.svg';
 import loginImage from '../../image/sign.svg';
+import { Context } from '../Functions/context';
 
 const NavBarStyled = styled.header`
   position: fixed;
@@ -64,30 +65,34 @@ const Figure = styled.figure`
   margin: 0 30px;
 `;
 
-export const NavBar = ({ authentification, logIn, logOut }) => (
-  <NavBarStyled>
-    <Logo>
-      <ImgLogo src={logoImage} alt='logo'/>
-      {/* eslint-disable-next-line react/no-unescaped-entities*/}
-      <H1>MrDonald's</H1>
-    </Logo>
-    {authentification ? (
-      <User>
-        <Figure>
-          <img src={loginImage} alt={authentification.displayName}/>
-          <figcaption>{authentification.displayName}</figcaption>
-        </Figure>
-        <LogOut onClick={logOut}>X</LogOut>
-      </User>
-    ) : (
-      <Button>
-        <ImgLogin
-          src={loginImage}
-          alt='login'
-          onClick={logIn}  
-        />
-      войти
-    </Button>
-    )}
-  </NavBarStyled>
-);
+export const NavBar = () => {
+  const { auth: { authentification, logIn, logOut } } = useContext(Context);
+  
+  return (
+    <NavBarStyled>
+      <Logo>
+        <ImgLogo src={logoImage} alt='logo'/>
+        {/* eslint-disable-next-line react/no-unescaped-entities*/}
+        <H1>MrDonald's</H1>
+      </Logo>
+      {authentification ? (
+        <User>
+          <Figure>
+            <img src={loginImage} alt={authentification.displayName}/>
+            <figcaption>{authentification.displayName}</figcaption>
+          </Figure>
+          <LogOut onClick={logOut}>X</LogOut>
+        </User>
+      ) : (
+        <Button>
+          <ImgLogin
+            src={loginImage}
+            alt='login'
+            onClick={logIn}  
+          />
+        войти
+      </Button>
+      )}
+    </NavBarStyled>
+  )
+};

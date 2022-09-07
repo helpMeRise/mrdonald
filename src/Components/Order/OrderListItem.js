@@ -67,7 +67,6 @@ export const OrderListItem = ({ order, removeItem, index, setOpenItem }) => {
             {item.name}
           </ItemTopping>
         ))}
-  
         </ItemToppings>
     </OrderItemStyled>
   )

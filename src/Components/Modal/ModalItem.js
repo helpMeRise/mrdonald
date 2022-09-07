@@ -8,8 +8,10 @@ import { Toppings } from './Toppings';
 import { useToppings } from '../Hooks/useToppings';
 import { useChoices } from '../Hooks/useChoices';
 import { Choices } from './Choices';
+import { useContext } from 'react';
+import { Context, ContextItem } from '../Functions/context';
 
-const Overlay = styled.div`
+export const Overlay = styled.div`
   position: fixed;
   display: flex;
   justify-content: center;
@@ -58,8 +60,12 @@ const TotalPriceItem = styled.div`
   padding: 0px 50px;
 `;
 
-export const ModalItem = ({ openItem, setOpenItem, orders,
-  setOrders}) => {
+export const ModalItem = () => {
+
+  const {
+    openItem: { openItem, setOpenItem },
+    orders: { orders, setOrders },
+  } = useContext(Context);
 
   const toppings = useToppings(openItem);
   const choices = useChoices(openItem);
@@ -100,9 +106,15 @@ export const ModalItem = ({ openItem, setOpenItem, orders,
           <p>{openItem.price.toLocaleString(
             'ru-RU', { style: 'currency', currency: 'RUB' })}</p>
         </GoodWithPrice>
-        <CountItem {...counter}/>
-        {openItem.toppings && <Toppings {...toppings}/>}
-        {openItem.choices && <Choices {...choices} openItem={openItem}/>}
+        <ContextItem.Provider value={{
+          counter,
+          toppings,
+          choices,
+        }}>
+          <CountItem/>
+          {openItem.toppings && <Toppings/>}
+          {openItem.choices && <Choices/>}
+        </ContextItem.Provider>
         <TotalPriceItem>
           <span>Цена:</span>
           <span>{formatCurrency(totalPriceItems(order))}</span>

@@ -1,4 +1,6 @@
+import { useContext } from 'react';
 import styled from 'styled-components';
+import { Context, ContextItem } from '../Functions/context';
 
 const ChoiceWrap = styled.div`
   padding: 0px 50px;
@@ -18,7 +20,11 @@ const ChoiceRadio = styled.input`
   margin-top: 5px;
 `;
 
-export const Choices = ({ choice, changeChoices, openItem }) => {
+export const Choices = () => {
+  const {
+    choices: { choice, changeChoices }
+  } = useContext(ContextItem);
+  const { openItem: { openItem } } = useContext(Context);
   return (
     <>
       <h3 style={{marginRight: 'auto', marginLeft: '50px'}}>Добавки</h3>
